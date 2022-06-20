@@ -6,13 +6,13 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:01:40 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 03:34:06 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:39:24 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	digit_cnt(long ln)
+static size_t	digit_cnt(long ln)
 {
 	size_t	digit;
 

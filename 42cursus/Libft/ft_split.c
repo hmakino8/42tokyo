@@ -6,13 +6,13 @@
 /*   By: hiroaki <hiroaki@student.42.fr            +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:30:41 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 04:15:46 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:39:45 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**free_all_element(char **s, size_t i)
+static char	**free_all_element(char **s, size_t i)
 {
 	while (i--)
 	{
@@ -23,7 +23,7 @@ char	**free_all_element(char **s, size_t i)
 	return (NULL);
 }
 
-size_t	element_cnt(char const *s, char c)
+static size_t	element_cnt(char const *s, char c)
 {
 	size_t	cnt;
 
@@ -42,7 +42,7 @@ size_t	element_cnt(char const *s, char c)
 	return (cnt);
 }
 
-char	**element_cpy(char const *s, char **split, char c, size_t cnt)
+static char	**element_cpy(char const *s, char **split, char c, size_t cnt)
 {
 	size_t	i;
 	size_t	len;
