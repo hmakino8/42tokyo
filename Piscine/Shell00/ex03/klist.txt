@@ -1,0 +1,5 @@
+Credentials cache: API:7395
+        Principal: hmakino@42TOKYO.JP
+
+  Issued                Expires               Principal
+Nov 16 00:31:12 2021  Nov 16 10:31:12 2021  krbtgt/42TOKYO.JP@42TOKYO.JP
