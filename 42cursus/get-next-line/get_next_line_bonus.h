@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 04:36:17 by hmakino           #+#    #+#             */
-/*   Updated: 2022/04/21 04:08:16 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 10:42:28 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 256
+#  define OPEN_MAX 1024
 # endif
 
 # ifndef BUFFER_SIZE
