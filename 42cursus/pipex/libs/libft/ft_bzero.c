@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:44:57 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/07 15:23:58 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 02:20:29 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	while (n--)
-		*(char *)s++ = '\0';
+	ft_memset(s, '\0', n);
 }
 
 //#include <stdio.h>

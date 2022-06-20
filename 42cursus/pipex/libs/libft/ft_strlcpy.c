@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:47:59 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/10 23:16:17 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 09:35:35 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	idx;
+	size_t	i;
+	size_t	slen;
 
-	idx = 0;
-	while (src[idx] && idx + 1 < dstsize)
+	slen = ft_strlen(src);
+	if (!dstsize)
+		return (slen);
+	i = 0;
+	while (src[i] && i + 1 < dstsize)
 	{
-		dst[idx] = src[idx];
-		idx++;
+		dst[i] = src[i];
+		i++;
 	}
-	if (dstsize)
-		dst[idx] = '\0';
-	return (ft_strlen(src));
+	dst[i] = '\0';
+	return (slen);
 }
 
 //#include <stdio.h>
@@ -32,27 +35,14 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 //
 //int	main(void)
 //{
-//	size_t	len;
-//	char	dst[] = "42tokyo-hmakino-42tokyo";
+//	char	dst[] = "42tokyo-";
+//	char	dst2[] = "42tokyo-";
 //
 //	printf("***********************************\n");
-//	len = strlcpy(dst, "makino", sizeof(dst));
-//	printf("strlcpy       : %s   len = %lu\n", dst, len);
-//	strlcpy(dst, "42tokyo-hmakino-42tokyo", 24);
-//	len = ft_strlcpy(dst, "makino", sizeof(dst));
-//	printf("ft_strlcpy    : %s   len = %lu\n", dst, len);
-//	printf("------------------------------------\n");
-//	len = strlcpy(dst, "", 0);
-//	printf("strlcpy       : %s   len = %lu\n", dst, len);
-//	strlcpy(dst, "42tokyo-hmakino-42tokyo", 24);
-//	len = ft_strlcpy(dst, "", 0);
-//	printf("ft_strlcpy    : %s   len = %lu\n", dst, len);
-//	printf("------------------------------------\n");
-//	len = strlcpy(dst, "42tokyo-hmakino-42tokyo42tokyo-hmakino-42tokyo", 0);
-//	printf("strlcpy       : %s   len = %lu\n", dst, len);
-//	strlcpy(dst, "42tokyo-hmakino-42tokyo", 24);
-//	len = ft_strlcpy(dst, "42tokyo-hmakino-42tokyo42tokyo-hmakino-42tokyo", 0);
-//	printf("ft_strlcpy    : %s   len = %lu\n", dst, len);
+//	printf("original len: %zu\n", strlcpy(dst, "hmakino", 8));
+//	printf("ft len: %zu\n", ft_strlcpy(dst2, "hmakino", 8));
+//	printf("original dst: %s\n", dst);
+//	printf("ft dst: %s\n", dst2);
 //	printf("***********************************\n");
 //
 //	return (0);

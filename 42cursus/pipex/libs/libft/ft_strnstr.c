@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 13:46:00 by hmakino           #+#    #+#             */
-/*   Updated: 2022/03/09 20:55:16 by hmakino          ###   ########.fr       */
+/*   Created: 2022/06/20 06:12:56 by hmakino           #+#    #+#             */
+/*   Updated: 2022/06/20 09:38:03 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,20 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	i;
-	size_t	j;
+	size_t	hlen;
+	size_t	nlen;
+	char	*hs;
 
-	if (ft_strlen(haystack) < ft_strlen(needle))
-		return (NULL);
+	hs = (char *)haystack;
 	if (!*needle)
-		return ((char *)haystack);
-	if (ft_strlen(haystack) < len)
-		len = ft_strlen(haystack);
-	i = 0;
-	while (haystack[i] && len)
+		return (hs);
+	hlen = ft_strlen(hs);
+	nlen = ft_strlen(needle);
+	while (*hs && hlen-- >= nlen && nlen <= len--)
 	{
-		j = 0;
-		while (haystack[i] && haystack[i + j] == needle[j] && i + j <= len - 1)
-		{
-			if (!needle[++j])
-				return ((char *)&haystack[i]);
-		}
-		i++;
+		if (*hs == *needle && !ft_memcmp(hs, needle, nlen))
+			return (hs);
+		hs++;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:25:39 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/10 03:07:27 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 09:38:48 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	sub_len;
-	char	*substr;
+	unsigned int	slen;
+	unsigned int	dlen;
+	char			*dup;
 
 	if (!s)
 		return (NULL);
-	if (ft_strlen(s) < start)
+	slen = ft_strlen(s);
+	if (slen < start)
 		return (ft_strdup(""));
-	sub_len = ft_strlen(s + start);
-	if (sub_len < len)
-		len = sub_len;
-	substr = (char *)malloc(len + 1);
-	if (!substr)
+	dlen = slen - start;
+	if (len < dlen)
+		dlen = len;
+	dup = (char *)malloc(dlen + 1);
+	if (!dup)
 		return (NULL);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	ft_strlcpy(dup, s + start, dlen + 1);
+	return (dup);
 }
 
 //#include <stdio.h>

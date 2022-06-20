@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:09:42 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 20:27:19 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 06:56:40 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	size_t	i;
-	char	*new_s;
+	size_t	slen;
+	char	*ret;
 
-	if (s)
-		new_s = (char *)malloc(ft_strlen(s) + 1);
-	if (!s || !f || !new_s)
+	if (s == NULL || f == NULL)
+		return (NULL);
+	slen = ft_strlen(s);
+	ret = (char *)malloc(slen + 1);
+	if (!ret)
 		return (NULL);
 	i = 0;
-	while (i < ft_strlen(s))
+	while (i < slen)
 	{
-		new_s[i] = f(i, s[i]);
+		ret[i] = f(i, s[i]);
 		i++;
 	}
-	new_s[i] = '\0';
-	return (new_s);
+	ret[i] = '\0';
+	return (ret);
 }
 
 //#include <stdio.h>
@@ -41,7 +44,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 //int main()
 //{
 //	char s1[] = "hdjik/,";
-//	char *s2;
-//	s2 = ft_strmapi(s1, f);
-//	printf("%s", s2);
+//	char *ret;
+//
+//	ret = ft_strmapi(s1, &f);
+//	printf("%s\n", ret);
 //}

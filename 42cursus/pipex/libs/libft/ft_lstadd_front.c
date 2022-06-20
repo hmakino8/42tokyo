@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:48:37 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 22:54:01 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 07:11:25 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (!new)
+	if (lst == NULL || new == NULL)
 		return ;
-	if (*lst && lst)
+	if (*lst == NULL)
+	{
+		*lst = new;
+		new->next = NULL;
+	}
+	else
+	{
 		new->next = *lst;
-	*lst = new;
+		*lst = new;
+	}
 }
 
 //#include <stdio.h>
@@ -40,4 +47,5 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 //		printf("\nnode->content : %s\n", (char *)node_first->content);
 //		node_first = node_first->next;
 //	}
+//	return (0);
 //}

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:03:48 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 21:58:49 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 07:08:40 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ t_list	*ft_lstnew(void *content)
 //	t_list	*node_new;
 //
 //	node_new = ft_lstnew("hmakino");
-//	printf("\nnode_new->content : %s\n", (char *)node_new->content);
+//	printf("node_new->content : %s\n", (char *)node_new->content);
 //}

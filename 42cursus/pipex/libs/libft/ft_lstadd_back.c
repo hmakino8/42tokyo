@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 18:17:37 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/10 00:27:13 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 06:39:50 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*second_last;
 
-	if (!new)
+	if (lst == NULL || new == NULL)
 		return ;
-	if (!*lst)
-		*lst = new;
-	else
+	if (*lst == NULL)
 	{
-		second_last = ft_lstlast(*lst);
-		second_last->next = new;
+		*lst = new;
+		return ;
 	}
+	second_last = ft_lstlast(*lst);
+	second_last->next = new;
 }
 
 //#include <stdio.h>

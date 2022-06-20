@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:33:46 by hmakino           #+#    #+#             */
-/*   Updated: 2022/03/09 21:19:48 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 04:20:47 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s || (!*s && !(unsigned char)c))
+	unsigned char	uc;
+
+	uc = (unsigned char)c;
+	while (*s || (!*s && !uc))
 	{
-		if (*s == (unsigned char)c)
+		if (*s == uc)
 			return ((char *)s);
 		s++;
 	}

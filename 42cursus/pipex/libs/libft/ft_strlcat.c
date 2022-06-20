@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 23:27:00 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 18:34:03 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 04:52:58 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	len_d;
-	size_t	len_s;
-	size_t	add;
+	size_t	dlen;
+	size_t	slen;
+	size_t	cat;
 
-	len_d = ft_strlen(dst);
-	len_s = ft_strlen(src);
-	if (dstsize <= len_d)
-		return (dstsize + len_s);
-	add = (dstsize - 1) - len_d;
-	if (add <= len_s)
-		ft_strlcpy(&dst[len_d], src, add + 1);
-	else
-		ft_strlcpy(&dst[len_d], src, len_s + 1);
-	return (len_d + len_s);
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	if (dstsize <= dlen)
+		return (dstsize + slen);
+	cat = (dstsize - 1) - dlen;
+	if (cat > slen)
+		cat = slen;
+	ft_strlcpy(&dst[dlen], src, cat + 1);
+	return (dlen + slen);
 }
 
 //#include <stdio.h>
@@ -35,13 +34,27 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 //
 //int main(void)
 //{
-//	char array1[16] = "42tokyo-h";
-//	char array2[16] = "42tokyo-h";
-//	char array3[] = "makino";
+//	char array1[16] = "42tokyo-";
+//	char array2[16] = "42tokyo-";
 //
 //	printf("***********************************\n");
-//	strlcat(array1, "makino", sizeof(array1));
-//	ft_strlcat(array2, "makino", sizeof(array2));
+//	printf("original len = %zu\n", strlcat(array1, "hmakino", 16));
+//	printf("ft len = %zu\n", ft_strlcat(array2, "hmakino", 16));
+//	printf("strlcat       : %s\n", array1);
+//	printf("ft_strlcat    : %s\n", array2);
+//	printf("\ncase dst NULL\n");
+//	printf("original len = %zu\n", strlcat(NULL, "hmakino", 16));
+//	printf("ft len = %zu\n", ft_strlcat(NULL, "hmakino", 16));
+//	printf("strlcat       : %s\n", array1);
+//	printf("ft_strlcat    : %s\n", array2);
+//	printf("\ncase src NULL\n");
+//	printf("original len = %zu\n", strlcat(array1, NULL, 16));
+//	printf("ft len = %zu\n", ft_strlcat(array2, NULL, 16));
+//	printf("strlcat       : %s\n", array1);
+//	printf("ft_strlcat    : %s\n", array2);
+//	printf("\ncase both NULL\n");
+//	printf("original len = %zu\n", strlcat(NULL, NULL, 16));
+//	printf("ft len = %zu\n", ft_strlcat(NULL, NULL, 16));
 //	printf("strlcat       : %s\n", array1);
 //	printf("ft_strlcat    : %s\n", array2);
 //	printf("***********************************\n");

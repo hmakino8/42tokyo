@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:46:41 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 02:28:36 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 08:43:25 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
+	const unsigned char	*us;
+	unsigned char		uch;
+
+	us = (const unsigned char *)s;
+	uch = (unsigned char)c;
 	while (n--)
 	{
-		if (*(const unsigned char *)s == (unsigned char)c)
-			return ((void *)s);
-		s++;
+		if (*us == uch)
+			return ((void *)us);
+		us++;
 	}
 	return (NULL);
 }

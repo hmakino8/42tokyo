@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:46:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/09 16:01:08 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 06:53:49 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	index;
+	size_t	i;
 
-	if (!dst && !src)
+	if (dst == NULL && src == NULL)
 		return (NULL);
-	index = 0;
-	while (index < n)
+	i = 0;
+	while (i < n)
 	{
-		*(char *)(dst + index) = *(char *)(src + index);
-		index++;
+		*(char *)(dst + i) = *(char *)(src + i);
+		i++;
 	}
 	return (dst);
 }
@@ -37,10 +37,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 //	char	buf2[22];
 //
 // 	printf("***********************************\n");
-//	memcpy(NULL, NULL, 1);
-//	printf("memcpy    : %s\n", buf);
-//	ft_memcpy(NULL, NULL, 1);
-//	printf("ft_memcpy : %s\n", buf2);
+//	memcpy(buf, src, 14);
+//	printf("memcpy    : [%s]\n", buf);
+//	ft_memcpy(buf2, src, 14);
+//	printf("ft_memcpy    : [%s]\n", buf2);
 // 	printf("***********************************\n");
 // 	return 0;
 // }

@@ -6,27 +6,24 @@
 /*   By: hiroaki <hiroaki@student.42.fr            +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:30:41 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/19 06:35:46 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 04:15:46 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**free_all_element(char **s, size_t i)
+char	**free_all_element(char **s, size_t i)
 {
-	size_t	j;
-
-	j = 0;
-	while (j <= i)
+	while (i--)
 	{
-		free(s[j]);
-		s[j++] = NULL;
+		free(s[i]);
+		s[i--] = NULL;
 	}
 	free(s);
 	return (NULL);
 }
 
-static size_t	element_cnt(char const *s, char c)
+size_t	element_cnt(char const *s, char c)
 {
 	size_t	cnt;
 
@@ -45,13 +42,13 @@ static size_t	element_cnt(char const *s, char c)
 	return (cnt);
 }
 
-static char	**element_cpy(char const *s, char **split, char c, size_t elem_cnt)
+char	**element_cpy(char const *s, char **split, char c, size_t cnt)
 {
 	size_t	i;
 	size_t	len;
 
 	i = 0;
-	while (*s && i < elem_cnt)
+	while (*s && i < cnt)
 	{
 		len = 0;
 		while (*s && *s == c)
@@ -73,16 +70,16 @@ static char	**element_cpy(char const *s, char **split, char c, size_t elem_cnt)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	elem_cnt;
+	size_t	cnt;
 	char	**split;
 
 	if (!s)
 		return (NULL);
-	elem_cnt = element_cnt(s, c);
-	split = (char **)malloc((elem_cnt + 1) * sizeof(char *));
+	cnt = element_cnt(s, c);
+	split = (char **)malloc((cnt + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
-	return (element_cpy(s, split, c, elem_cnt));
+	return (element_cpy(s, split, c, cnt));
 }
 
 //#include <stdio.h>
