@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:44:45 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 10:14:20 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/20 10:27:49 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_isnegative(int c)
 
 static int	overflow(long num, int sign)
 {
-	if ((sign > 0 && num > INT_MAX) || (sign < 0 && -num < INT_MIN))
+	if ((sign > 0 && num > INT_MAX) || (sign < 0 && - num < INT_MIN))
 		return (1);
 	return (0);
 }
