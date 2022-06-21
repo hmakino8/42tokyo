@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:46:18 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 08:18:29 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 18:49:38 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if (lst == NULL)
+	if (!lst)
 		return ;
-	if (del != NULL)
+	if (del)
 		del(lst->content);
 	free(lst);
 }

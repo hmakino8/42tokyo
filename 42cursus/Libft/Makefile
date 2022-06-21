@@ -6,12 +6,11 @@
 #    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/06 17:10:58 by hiroaki           #+#    #+#              #
-#    Updated: 2022/06/20 09:34:14 by hmakino          ###   ########.fr        #
+#    Updated: 2022/06/21 20:48:42 by hmakino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	libft.a
-RM				=	rm -rf
 CFLAGS			=	-Wall -Wextra -Werror
 
 SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
@@ -22,12 +21,11 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
 					ft_toupper.c ft_calloc.c ft_isdigit.c ft_memchr.c ft_memset.c \
 					ft_putstr_fd.c ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c
 
-OBJS			=	$(SRCS:.c=.o)
-
 BONUS			=	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 					ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
 					ft_lstmap.c ft_lstnew.c ft_lstsize.c
 
+OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS:.c=.o)
 
 ifdef WITH_BONUS

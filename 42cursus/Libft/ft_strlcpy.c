@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:47:59 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 09:35:35 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:13:50 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	if (!dstsize)
 		return (slen);
 	i = 0;
-	while (src[i] && i + 1 < dstsize)
+	while (src[i] && i < dstsize - 1)
 	{
 		dst[i] = src[i];
 		i++;

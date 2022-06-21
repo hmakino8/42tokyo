@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr            +#+  +:+       +#+         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:30:41 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 11:39:45 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:08:00 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ static size_t	element_cnt(char const *s, char c)
 	cnt = 0;
 	while (*s)
 	{
-		if (*s != c)
+		if (*s++ != c)
 		{
 			cnt++;
 			while (*s && *s != c)
 				s++;
 		}
-		while (*s && *s == c)
-			s++;
 	}
 	return (cnt);
 }

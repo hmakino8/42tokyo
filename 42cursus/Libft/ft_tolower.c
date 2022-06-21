@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:48:29 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/03/11 00:20:06 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:21:42 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_tolower(int c)
 {
 	if ('A' <= c && c <= 'Z')
-		return (c + 32);
+		return (c + ('a' - 'A'));
 	return (c);
 }
 
@@ -25,11 +25,11 @@ int	ft_tolower(int c)
 //int main(void)
 //{
 //	printf("********************************\n");
-//	printf("tolower    : %c\n", tolower('Z'));
-//	printf("ft_tolower : %c\n", ft_tolower('Z'));
+//	printf("tolower    'Z' : %c\n", tolower('Z'));
+//	printf("ft_tolower 'Z' : %c\n", ft_tolower('Z'));
 //	printf("--------------------------------\n");
-//	printf("tolower    : %c\n", tolower('*'));
-//	printf("ft_tolower : %c\n", ft_tolower('*'));
+//	printf("tolower    '*' : %c\n", tolower('*'));
+//	printf("ft_tolower '*' : %c\n", ft_tolower('*'));
 //	printf("********************************\n");
 //	return (0);
 //}

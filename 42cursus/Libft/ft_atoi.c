@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:44:45 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 10:27:49 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:24:56 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,40 @@ static int	ft_isspace(int c)
 	return (c == ' ' || ('\t' <= c && c <= '\r'));
 }
 
-static int	ft_isnegative(int c)
+static int	ft_overflow(int sign)
 {
-	return (c == '-');
+	if (sign > 0)
+		return (-1);
+	return (0);
 }
 
-static int	overflow(long num, int sign)
+static int	ft_isoverflow(unsigned long num, int sign)
 {
-	if ((sign > 0 && num > INT_MAX) || (sign < 0 && - num < INT_MIN))
+	if ((sign > 0 && num > LONG_MAX) || \
+			(sign < 0 && num > (LONG_MAX + 1UL)))
 		return (1);
 	return (0);
 }
 
 int	ft_atoi(const char *str)
 {
-	int		sign;
-	long	num;
+	int				sign;
+	unsigned long	num;
 
 	sign = 1;
 	num = 0;
 	while (ft_isspace(*str))
 		str++;
-	if (ft_isnegative(*str))
-		sign = -1;
 	if (*str == '-' || *str == '+')
-		str++;
+	{
+		if (*str++ == '-')
+			sign = -1;
+	}
 	while (ft_isdigit(*str))
 	{
 		num = (num * 10) + (*str++ - '0');
-		if (overflow(num, sign))
-		{
-			if (sign > 0)
-				return (INT_MAX);
-			return (INT_MIN);
-		}
+		if (ft_isoverflow(num, sign))
+			return (ft_overflow(sign));
 	}
 	return ((int)num * sign);
 }
