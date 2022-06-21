@@ -6,16 +6,15 @@
 #    By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 05:02:19 by hmakino           #+#    #+#              #
-#    Updated: 2022/06/19 05:57:22 by hmakino          ###   ########.fr        #
+#    Updated: 2022/06/21 21:12:57 by hmakino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	pipex
-RM				=	rm -rf
 FLAGS			=	-Wall -Wextra -Werror
 
 #mandatory
-SRCS			=	pipex.c get.c exec.c split.c free.c error.c
+SRCS			=	pipex.c get.c exec.c free.c error.c
 SRCS_PATH		= 	$(addprefix ./src/mandatory/, $(SRCS))
 OBJS_PATH		=	$(SRCS_PATH:%.c=%.o)
 

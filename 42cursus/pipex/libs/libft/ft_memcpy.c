@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:46:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 06:53:49 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:26:01 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,37 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
+	size_t		i;
+	char		*cdst;
+	const char	*csrc;
 
-	if (dst == NULL && src == NULL)
+	if (!dst && !src)
 		return (NULL);
+	cdst = (char *)dst;
+	csrc = (const char *)src;
 	i = 0;
 	while (i < n)
 	{
-		*(char *)(dst + i) = *(char *)(src + i);
+		*(cdst + i) = *(csrc + i);
 		i++;
 	}
 	return (dst);
 }
 
-// #include <stdio.h>
-// #include <string.h>
+//#include <stdio.h>
+//#include <string.h>
 //
-// int main(void)
-// {
+//int main(void)
+//{
 //	char	src[] = "test basic du memcpy !";
 //	char	buf[22];
 //	char	buf2[22];
 //
-// 	printf("***********************************\n");
+//	printf("***********************************\n");
 //	memcpy(buf, src, 14);
 //	printf("memcpy    : [%s]\n", buf);
 //	ft_memcpy(buf2, src, 14);
 //	printf("ft_memcpy    : [%s]\n", buf2);
-// 	printf("***********************************\n");
-// 	return 0;
-// }
+//	printf("***********************************\n");
+//	return 0;
+//}

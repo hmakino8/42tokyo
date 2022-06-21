@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/19 06:37:39 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 22:01:33 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	child_process(char **av, char **envp, int i, t_pipex *px)
 {
 	duplicate_fd(i, px);
 	close_pipes(px);
-	px->cmd_op = ft_nsplit(av[2 + px->h_flag + i], ' ', 2);
+	px->cmd_op = ft_split(av[2 + px->h_flag + i], ' ');
 	if (!px->cmd_op)
-		exit_fail(0, "malloc", px);
+		exit_fail(0, NULL, px);
 	get_cmd(px->cmd_op[0], px);
 	if (!px->fullpath_cmd)
 		exit_fail(ERR_CMD, px->cmd_op[0], px);

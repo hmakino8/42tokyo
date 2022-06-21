@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:48:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 09:39:19 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:15:50 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		if (us1[i] != us2[i])
 			return (us1[i] - us2[i]);
 		if (!us1[i] || !us2[i])
-			break ;
+			return (0);
 		i++;
 	}
 	return (0);

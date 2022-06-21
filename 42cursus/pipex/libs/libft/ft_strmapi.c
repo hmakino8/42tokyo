@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:09:42 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 06:56:40 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:14:19 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	slen;
 	char	*ret;
 
-	if (s == NULL || f == NULL)
+	if (!s || !f)
 		return (NULL);
 	slen = ft_strlen(s);
 	ret = (char *)malloc(slen + 1);

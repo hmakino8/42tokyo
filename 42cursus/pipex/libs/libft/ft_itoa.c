@@ -6,13 +6,13 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 09:01:40 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 03:34:06 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:29:11 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	digit_cnt(long ln)
+static size_t	digit_cnt(long ln)
 {
 	size_t	digit;
 
@@ -23,6 +23,18 @@ size_t	digit_cnt(long ln)
 		digit++;
 	}
 	return (digit);
+}
+
+static char	*putnum_in_array(long ln, char *ret, size_t len, size_t isneg)
+{
+	while (isneg < len--)
+	{
+		ret[len] = (char)(ln % 10 + '0');
+		ln /= 10;
+	}
+	if (isneg)
+		ret[0] = '-';
+	return (ret);
 }
 
 char	*ft_itoa(int n)
@@ -37,17 +49,11 @@ char	*ft_itoa(int n)
 	if (isneg)
 		ln *= -1;
 	len = digit_cnt(ln) + isneg;
-	ret = (char *)ft_calloc(len + 1, sizeof(char));
+	ret = (char *)malloc(len + 1);
 	if (!ret)
 		return (NULL);
-	while (isneg < len--)
-	{
-		ret[len] = (char)(ln % 10 + '0');
-		ln /= 10;
-	}
-	if (isneg)
-		ret[0] = '-';
-	return (ret);
+	ret[len] = '\0';
+	return (putnum_in_array(ln, ret, len, isneg));
 }
 
 //#include <stdio.h>
@@ -56,6 +62,6 @@ char	*ft_itoa(int n)
 //{
 //	printf("INT_MAX : %s\n", ft_itoa(INT_MAX));
 //	printf("INT_MIN : %s\n", ft_itoa(INT_MIN));
-//	printf("0       : %s", ft_itoa(0));
+//	printf("0       : %s\n", ft_itoa(0));
 //	return (0);
 // }

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:47:30 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/20 03:49:15 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:26:21 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (src == NULL && dst == NULL)
+	char		*cdst;
+	const char	*csrc;
+
+	if (!src && !dst)
 		return (NULL);
 	if (dst < src)
 		return (ft_memcpy(dst, src, len));
+	cdst = (char *)dst;
+	csrc = (const char *)src;
 	while (len--)
-		*(char *)(dst + len) = *(char *)(src + len);
+		*(cdst + len) = *(csrc + len);
 	return (dst);
 }
 
