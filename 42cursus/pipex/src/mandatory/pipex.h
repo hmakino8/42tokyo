@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/14 03:06:35 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/22 12:04:31 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	get_files(int ac, char **av, t_pipex *px);
 void	get_paths(char **envp, t_pipex *px);
 void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
+//parse.c
+void	parse_cmd(char *av ,t_pipex *px);
 //exec.c
 void	exec_pipes(char **av, char **envp, t_pipex *px);
 //free.c
