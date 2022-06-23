@@ -6,7 +6,7 @@
 #    By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 05:02:19 by hmakino           #+#    #+#              #
-#    Updated: 2022/06/24 07:36:54 by hiroaki          ###   ########.fr        #
+#    Updated: 2022/06/24 08:00:27 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS_PATH		= 	$(addprefix ./src/mandatory/, $(SRCS))
 OBJS_PATH		=	$(SRCS_PATH:%.c=%.o)
 
 #bonus
-BONUS_SRCS		=	pipex_bonus.c get_bonus.c exec_bonus.c free_bonus.c error_bonus.c
+BONUS_SRCS		=	pipex_bonus.c get_bonus.c exec_bonus.c split_bonus.c \
+					subelems_bonus.c free_bonus.c error_bonus.c
 BONUS_PATH		= 	$(addprefix ./src/bonus/, $(BONUS_SRCS))
 BONUS_OBJS_PATH	=	$(BONUS_PATH:%.c=%.o)
 

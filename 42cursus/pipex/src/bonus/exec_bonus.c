@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_bonus.c                                       :+:      :+:    :+:   */
+/*   exex_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/14 03:13:02 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/24 08:02:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	close_pipes(t_pipex *px)
 		close(px->pipe[i++]);
 }
 
-static void	duplicate(int idx, t_pipex *px)
+static void	duplicate_fd(int idx, t_pipex *px)
 {
 	int	i;
 
@@ -43,6 +43,21 @@ static void	duplicate(int idx, t_pipex *px)
 	}
 }
 
+static void	child_process(char **av, char **envp, int i, t_pipex *px)
+{
+	duplicate_fd(i, px);
+	close_pipes(px);
+	px->cmd_op = split_cmds(av[2 + px->h_flag + i], px);
+	if (!px->cmd_op)
+		exit_fail(0, NULL, px);
+	get_cmd(px->cmd_op[0], px);
+	if (!px->fullpath_cmd)
+		exit_fail(ERR_CMD, px->cmd_op[0], px);
+	if (execve(px->fullpath_cmd, px->cmd_op, envp) < 0)
+		exit_fail(0, "execve", px);
+	exit(EXIT_SUCCESS);
+}
+
 void	exec_pipes(char **av, char **envp, t_pipex *px)
 {
 	int		i;
@@ -55,18 +70,6 @@ void	exec_pipes(char **av, char **envp, t_pipex *px)
 		if (pid < 0)
 			exit_fail(0, "fork", px);
 		if (!pid)
-		{
-			duplicate(i, px);
-			close_pipes(px);
-			px->cmd_op = ft_split(av[2 + px->h_flag + i], ' ');
-			if (!px->cmd_op)
-				exit_fail(0, "malloc", px);
-			get_cmd(px->cmd_op[0], px);
-			if (!px->fullpath_cmd)
-				exit_fail(ERR_CMD, px->cmd_op[0], px);
-			if (execve(px->fullpath_cmd, px->cmd_op, envp) < 0)
-				exit_fail(0, "execve", px);
-			exit(EXIT_SUCCESS);
-		}
+			child_process(av, envp, i, px);
 	}
 }

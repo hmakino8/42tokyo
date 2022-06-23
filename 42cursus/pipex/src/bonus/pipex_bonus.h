@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/14 04:46:58 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/24 08:03:22 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_pipex
 	int		cmd_cnt;
 	int		pipe_cnt;
 	int		*pipe;
+	size_t	idx;
+	size_t	locate;
 	char	*fullpath_cmd;
 	char	**dev_envp;
 	char	**cmd_op;
@@ -44,18 +46,22 @@ typedef struct s_pipex
 # define ERR_PATH 5
 # define ERR_HEREDOC 6
 
-//pipex.c
+//pipex_bonus.c
 void	close_pipes(t_pipex *px);
-//get.c
+//get_bonus.c
 void	get_files(int ac, char **av, t_pipex *px);
 void	get_paths(char **envp, t_pipex *px);
 void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
-//exec.c
+//split_bonus.c
+char	**split_cmds(char *cmds, t_pipex *px);
+//subelems_bonus.c
+char	**subelems(char *cmds, char **split, t_pipex *px);
+//exec_bonus.c
 void	exec_pipes(char **av, char **envp, t_pipex *px);
-//free.c
+//free_bonus.c
 void	free_alloc_memory(t_pipex *px);
-//error.c
+//error_bonus.c
 void	exit_fail(int err_num, char *err, t_pipex *px);
 
 #endif

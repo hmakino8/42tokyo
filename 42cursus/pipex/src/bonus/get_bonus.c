@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:26:41 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/14 03:15:37 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/24 08:02:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void	get_paths(char **envp, t_pipex *px)
 {
 	while (ft_strncmp("PATH", *envp, 4))
 	{
-		if (*envp == NULL)
+		if (!*envp)
 			return (exit_fail(ERR_PATH, NULL, px));
 		envp++;
 	}
 	px->dev_envp = ft_split(*envp + 5, ':');
-	if (px->dev_envp == NULL)
-		return (exit_fail(0, "malloc", px));
+	if (!px->dev_envp)
+		return (exit_fail(0, NULL, px));
 }
 
 void	get_pipes(int ac, t_pipex *px)
@@ -78,7 +78,7 @@ void	get_pipes(int ac, t_pipex *px)
 	px->pipe_cnt = 2 * (px->cmd_cnt - 1);
 	px->pipe = malloc(sizeof(int) * px->pipe_cnt);
 	if (!px->pipe)
-		return (exit_fail(0, "malloc", px));
+		return (exit_fail(0, NULL, px));
 	i = 0;
 	while (i < px->cmd_cnt - 1)
 	{
@@ -97,12 +97,12 @@ void	get_cmd(char *cmd, t_pipex *px)
 	{
 		tmp = ft_strjoin(px->dev_envp[i++], "/");
 		if (!tmp)
-			exit_fail(0, "malloc", px);
+			exit_fail(0, NULL, px);
 		px->fullpath_cmd = ft_strjoin(tmp, cmd);
 		free(tmp);
 		tmp = NULL;
 		if (!px->fullpath_cmd)
-			exit_fail(0, "malloc", px);
+			exit_fail(0, NULL, px);
 		if (access(px->fullpath_cmd, 0) == 0)
 			return ;
 		free(px->fullpath_cmd);
