@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/22 12:19:28 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/23 10:29:48 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	child_process(char **av, char **envp, int i, t_pipex *px)
 {
 	duplicate_fd(i, px);
 	close_pipes(px);
-	parse_cmd(av[2 + px->h_flag + i], px);
+	parse_cmds(av[2 + px->h_flag + i], px);
 	if (!px->cmd_op)
 		exit_fail(0, NULL, px);
 	get_cmd(px->cmd_op[0], px);

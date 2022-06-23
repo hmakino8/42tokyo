@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:19:26 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/14 03:06:42 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/24 04:02:56 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	check_args(int ac, char **av, t_pipex *px)
 
 static void	init_pipex(t_pipex *px)
 {
+	px->idx = 0;
 	px->h_flag = 0;
 	px->pipe = NULL;
 	px->fullpath_cmd = NULL;
