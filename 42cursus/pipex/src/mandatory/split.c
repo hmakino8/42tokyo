@@ -1,5 +1,5 @@
 #include "pipex.h"
-#include <stdlib.h>
+#include <libc.h>
 #include <stdio.h>
 
 static int	is_char_literal(char c, int *flag_c)
@@ -48,60 +48,88 @@ static int	elem_count(char *s)
 	int	cnt;
 	size_t	locate;
 
-	cnt = 0;
+	cnt = 1;
 	locate = 0;
 	while (*s)
 	{
 		locate = delimiter_locate(s);
 		if (!locate)
 			return (cnt);
+		cnt++;
 		s += locate + 1;
 	}
 	return (cnt);
 }
 
-void	duplicate_trimed_cmds(char *cmds, int locate, size_t i, t_pipex *px)
+char **duplicate_trimed_cmds(char *cmds, int locate, size_t i, char **split)
 {
 	char	*trim;
 
 	if (!*cmds)
-		return ;
+		return NULL;
 	trim = ft_strtrim(cmds, "\"'");
 	if (!trim)
-		return ;
+		exit(1);
 	if (!locate)
 	{
-		px->cmd_op[i] = ft_strdup(cmds);
-		if (!px->cmd_op[i])
-			return ;
-		return ;
+		split[i] = ft_strdup(trim);
+		if (!split[i])
+			exit(1);
+		return split;
 	}
-	px->cmd_op[i] = ft_substr(cmds, 0, locate);
-	if (!px->cmd_op[i])
-		return ;
+	split[i] = ft_substr(trim, 0, locate);
+	if (!split[i])
+		exit(1);
+	return split;
 }
 
-void	split_cmds(char *cmds, t_pipex *px)
+//void	split_cmds(char *cmds, t_pipex *px)
+//{
+//	int cnt;
+//	int locate;
+//	size_t	i;
+//
+//	cnt = elem_count(cmds);
+//	px->cmd_op = malloc(sizeof(char *) * cnt + 1);
+//	px->cmd_op[cnt] = NULL;
+//	if (!px->cmd_op)
+//		return ;
+//	i = 0;
+//	while (i < cnt)
+//	{
+//		locate = delimiter_locate(cmds);
+//		if (!locate)
+//			return (duplicate_trimed_cmds(cmds, locate, i, px));
+//		duplicate_trimed_cmds(cmds, locate, i, px);
+//		cmds += locate + 1;
+//	}
+//}
+
+char	**split_cmds(char *cmds)
 {
 	int cnt;
 	int locate;
+	char **split;
 	size_t	i;
 
 	cnt = elem_count(cmds);
-	px->cmd_op = malloc(sizeof(char *) * cnt + 1);
-	px->cmd_op[cnt] = NULL;
-	if (!px->cmd_op)
-		return ;
+	dprintf(2, "%d\n", cnt);
+	split = malloc(sizeof(char *) * (cnt + 1));
+	if (!split)
+		return NULL;
 	i = 0;
 	while (i < cnt)
 	{
 		locate = delimiter_locate(cmds);
 		if (!locate)
-			return (duplicate_trimed_cmds(cmds, locate, i, px));
-		duplicate_trimed_cmds(cmds, locate, i, px);
+			return (duplicate_trimed_cmds(cmds, locate, i, split));
+		duplicate_trimed_cmds(cmds, locate, i, split);
+		i++;
 		cmds += locate + 1;
 	}
+	return split;
 }
+
 	//i = 0;
 	//while (i < parse_elem(av, px))
 	//	px->cmd_op[i++] = malloc(20);
@@ -136,6 +164,7 @@ void	split_cmds(char *cmds, t_pipex *px)
 //	size_t len = 0;
 //	size_t locate = 0;
 //	char *tmp;
+//	char **split;
 //	char *s = strdup("echo echo echo \"hello world\"");
 //	char s2[] = "echo 'hello world'";
 //	char *s3 = strdup("awk '{print $1}'");
@@ -143,18 +172,23 @@ void	split_cmds(char *cmds, t_pipex *px)
 //	char s5[] = "\"'\"";
 //	char s6[] = "'\"'";
 //
-//	while (*s3)
-//	{
-//		locate = delimiter_locate(s3);
-//		if (!locate)
-//		{
-//			if (*s3)
-//				printf("locate: [%s]\n", ft_strtrim(s3, "\"'"));
-//			return (0);
-//		}
-//		printf("locate: [%s]\n", ft_strtrim(ft_substr(s3, 0, locate), "\"'"));
-//		s3 += locate + 1;
-//	}
+//	split = split_cmds(s3);
+//	while (*split)
+//		printf("split: [%s]\n", *split++);
+//	//while (*split)
+//	//	printf("split: %s\n", *split++);
+//	//while (*s3)
+//	//{
+//	//	locate = delimiter_locate(s3);
+//	//	if (!locate)
+//	//	{
+//	//		if (*s3)
+//	//			printf("locate: [%s]\n", ft_strtrim(s3, "\"'"));
+//	//		return (0);
+//	//	}
+//	//	printf("locate: [%s]\n", ft_strtrim(ft_substr(s3, 0, locate), "\"'"));
+//	//	s3 += locate + 1;
+//	//}
 //
 //	//printf("[%s]: cnt = %d, len = %zu\n", s, cnt, len);
 //	//parse_elem(s2, &cnt, &len);
