@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:25:52 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/21 22:00:50 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/25 10:50:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exit_fail(int err_num, char *err, t_pipex *px)
 		ft_dprintf(2, "%s%s\n", "Error: command not found: ", err);
 	if (!err_num)
 		perror(err);
-	if (px->h_flag)
+	if (px->flag_h == FLAGGED_HEREDOC)
 		unlink(".heredoc");
 	free_alloc_memory(px);
 	exit(EXIT_FAILURE);

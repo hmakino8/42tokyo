@@ -6,13 +6,13 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:26:41 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/21 22:04:15 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/25 11:20:17 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	get_heredoc(char *limiter, t_pipex *px)
+static void	get_heredoc(char *limiter, char *filename, t_pipex *px)
 {
 	int		cmp;
 	char	*gnl;
@@ -23,27 +23,29 @@ static void	get_heredoc(char *limiter, t_pipex *px)
 	cmp = 1;
 	while (cmp)
 	{
-		write(1, "heredoc> ", 9);
+		ft_dprintf(1, "%s", "heredoc> ");
 		gnl = get_next_line(0);
-		if (gnl == NULL)
+		if (!gnl)
+		{
+			open(filename, O_WRONLY | O_CREAT | O_APPEND, 0000644);
 			exit_fail(ERR_GNL, NULL, px);
+		}
 		cmp = ft_strncmp(limiter, gnl, ft_strlen(limiter));
 		if (cmp)
-			write(px->h_fd, gnl, ft_strlen(gnl));
+			ft_dprintf(px->h_fd, "%s", gnl);
 		free(gnl);
 	}
 }
 
 void	get_files(int ac, char **av, t_pipex *px)
 {
-	if (px->h_flag)
+	if (px->flag_h == FLAGGED_HEREDOC)
 	{
-		get_heredoc(av[2], px);
+		get_heredoc(av[2], av[ac - 1], px);
 		close(px->h_fd);
 		px->i_fd = open(".heredoc", O_RDONLY);
 		if (px->i_fd < 0)
 			return (exit_fail(ERR_HEREDOC, NULL, px));
-		px->h_flag = 1;
 		px->o_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0000644);
 		if (px->o_fd < 0)
 			return (exit_fail(ERR_HEREDOC, NULL, px));
@@ -74,7 +76,10 @@ void	get_pipes(int ac, t_pipex *px)
 {
 	int	i;
 
-	px->cmd_cnt = ac - 3 - px->h_flag;
+	if (px->flag_h == FLAGGED_HEREDOC)
+		px->cmd_cnt = ac - 4;
+	else
+		px->cmd_cnt = ac - 3;
 	px->pipe_cnt = 2 * (px->cmd_cnt - 1);
 	px->pipe = malloc(sizeof(int) * px->pipe_cnt);
 	if (!px->pipe)

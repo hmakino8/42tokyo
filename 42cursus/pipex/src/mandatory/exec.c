@@ -6,7 +6,7 @@
 /*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 07:37:47 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/25 21:14:37 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ static void	child_process(char **av, char **envp, int i, t_pipex *px)
 {
 	duplicate_fd(i, px);
 	close_pipes(px);
-	px->cmd_op = split_cmds(av[2 + px->h_flag + i], px);
+	if (px->flag_h == FLAGGED_HEREDOC)
+		px->cmd_op = split_cmds(av[3 + i], px);
+	else
+		px->cmd_op = split_cmds(av[2 + i], px);
 	if (!px->cmd_op)
 		exit_fail(0, NULL, px);
+	dprintf(2, "px->cmd_op = [%s]\n", px->cmd_op[0]);
+	dprintf(2, "px->cmd_op = [%s]\n", px->cmd_op[1]);
 	get_cmd(px->cmd_op[0], px);
 	if (!px->fullpath_cmd)
 		exit_fail(ERR_CMD, px->cmd_op[0], px);

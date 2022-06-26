@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 07:53:42 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/25 11:17:30 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_pipex
 	int		i_fd;
 	int		o_fd;
 	int		h_fd;
-	int		h_flag;
+	int		flag_h;
 	int		cmd_cnt;
 	int		pipe_cnt;
 	int		*pipe;
@@ -45,6 +45,7 @@ typedef struct s_pipex
 # define ERR_PIPE 4
 # define ERR_PATH 5
 # define ERR_HEREDOC 6
+# define FLAGGED_HEREDOC 7
 
 //pipex.c
 void	close_pipes(t_pipex *px);

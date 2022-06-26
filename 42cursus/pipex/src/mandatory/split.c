@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 07:03:56 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/24 07:52:54 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/27 01:44:16 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	is_quatation_mark(char c, int *flag_s, int *flag_d)
+static int	is_quotation_mark(char c, int *flag_s, int *flag_d)
 {
 	if (c == '"')
 		*flag_s ^= 1;
@@ -32,9 +32,15 @@ static size_t	delimiter_locate(char *s)
 	tmp = s;
 	while (*s)
 	{
-		if (is_quatation_mark(*s, &flag_s, &flag_d))
+		if (is_quotation_mark(*s, &flag_s, &flag_d))
 			s++;
-		else if (*s == ' ' && !flag_s && !flag_d)
+		//if (ft_isspace(*s))
+		//{
+		//	while (ft_isspace(*(s + 1)))
+		//		s++;
+		//	return (s - tmp);
+		//}
+		else if (*s == ' ')
 			return (s - tmp);
 		else
 			s++;
@@ -60,8 +66,7 @@ static int	elem_count(char *s)
 	return (cnt);
 }
 
-static char
-	**copy_elems(char *cmds, int cnt, char **split, t_pipex *px)
+static char	**copy_elems(char *cmds, int cnt, char **split, t_pipex *px)
 {
 	while (px->idx < cnt)
 	{
