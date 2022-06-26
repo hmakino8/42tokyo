@@ -1,6 +1,7 @@
+*.out
 *.o
 *.a
 infile*
 outfile*
 main.c
-.DS_Store
+*DS_Store
