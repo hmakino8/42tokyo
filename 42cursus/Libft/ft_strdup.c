@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:34:53 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/21 19:09:51 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/06/26 19:40:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strdup(const char *s1)
 //#include <stdio.h>
 //#include <string.h>
 //
-//int main(void)
+//int	main(void)
 //{
 //	char	array[] = "Hello 42!\0 42!";
 //
@@ -36,5 +36,5 @@ char	*ft_strdup(const char *s1)
 //	printf("strdup    : %s\n", strdup(array));
 //	printf("ft_strdup : %s\n", ft_strdup(array));
 //	printf("***********************************\n");
-//	return 0;
+//	return (0);
 //}
