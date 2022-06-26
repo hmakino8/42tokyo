@@ -1,7 +1,6 @@
-*out
+*.out
 *.o
 *.a
 infile*
 outfile*
 main.c
-*Store
