@@ -1,5 +1,2 @@
-*pipex
-*infile
-*outfile
-libs/libft/*.o
-*.a
+*
+!*.*
