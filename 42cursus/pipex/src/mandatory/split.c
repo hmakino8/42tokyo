@@ -1,89 +1,116 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 07:03:56 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/27 17:12:10 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/06/27 17:02:30 by hiroaki           #+#    #+#             */
+/*   Updated: 2022/06/28 02:29:31 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	is_quotation_mark(char *cmds, size_t *len)
+static bool	is_quotation_mark(char c)
 {
-	int	flag_s;
-	int	flag_d;
-
-	flag_s = (*cmds == '\'');
-	flag_d = (*cmds == '"');
-	*len = (flag_s | flag_d);
-	while (flag_s && cmds[*len] != '\'' || (flag_d && cmds[*len] != '"'))
-		(*len)++;
-	return (flag_s | flag_d);
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
 }
 
-static size_t	delimiter_locate(char *cmds)
+static size_t	element_cnt(char *cmds, t_pipex *px)
 {
-	size_t	len;
+	size_t	cnt;
+	char	q_mark;
 
-	len = 0;
-	if (is_quotation_mark(cmds + len, &len))
-		return (len);
-	while (*(cmds + len))
-	{
-		if (*(cmds + len) == ' ')
-			return (len);
-		len++;
-	}
-	return (0);
-}
-
-static int	elem_count(char *cmds)
-{
-	int		cnt;
-	size_t	locate;
-
-	cnt = 1;
-	locate = 0;
+	cnt = 0;
 	while (*cmds)
 	{
-		locate = delimiter_locate(cmds);
-		if (!locate)
-			return (cnt);
-		cnt++;
-		cmds += locate + 1;
+		if (*cmds++ != ' ')
+		{
+			cnt++;
+			while (*cmds && *cmds != ' ')
+				cmds++;
+		}
+		if (is_quotation_mark(*cmds) == true)
+		{
+			cnt++;
+			q_mark = *cmds++;
+			while (*cmds != q_mark)
+				cmds++;
+			cmds++;
+		}
 	}
 	return (cnt);
 }
 
-static char	**copy_elems(char *cmds, int cnt, char **split, t_pipex *px)
+static void	sub_elems(char *cmds, size_t len, t_pipex *px)
 {
-	while (px->idx < cnt)
-	{
-		while (*cmds == ' ')
-			cmds++;
-		px->locate = delimiter_locate(cmds);
-		if (!px->locate)
-			return (subelems(cmds, split, px));
-		subelems(cmds, split, px);
-		px->idx++;
-		cmds += px->locate + 1;
-	}
-	return (split);
+	px->cmd[px->idx] = ft_substr(cmds, 0, len);
+	if (!(px->cmd[px->idx]))
+		exit_fail(0, NULL, px);
+	px->idx++;
 }
 
-//char	**split_cmds(char *cmds, t_pipex *px)
-//{
-//	int		cnt;
-//	char	**split;
+static void	element_cpy(char *cmds, size_t cnt, t_pipex *px)
+{
+	size_t	len;
+	char	q_mark;
+
+	px->idx = 0;
+	while (*cmds && px->idx < cnt)
+	{
+		len = 0;
+		if (is_quotation_mark(*cmds) == true)
+		{
+			q_mark = *cmds++;
+			while (*(cmds + len) && *(cmds + len) != q_mark)
+				len++;
+			sub_elems(cmds, len, px);
+			cmds += len + 1;
+		}
+		if (*cmds && *cmds != ' ')
+		{
+			while (*(cmds + len) && *(cmds + len) != ' ')
+				len++;
+			sub_elems(cmds, len, px);
+			cmds += len;
+		}
+		cmds++;
+	}
+}
+
+void	split_cmds(char *cmds, t_pipex *px)
+{
+	size_t	cnt;
+
+	if (!cmds)
+		return ;
+	cnt = element_cnt(cmds, px);
+	px->cmd = (char **)malloc(sizeof(char *) * (cnt + 1));
+	if (!px->cmd)
+		exit_fail(0, NULL, px);
+	px->cmd[cnt + 1] = NULL;
+	return (element_cpy(cmds, cnt, px));
+}
+
+//#include <libc.h>
 //
-//	cnt = elem_count(cmds);
-//	split = malloc(sizeof(char *) * (cnt + 1));
-//	if (!split)
-//		exit_fail(0, NULL, px);
-//	split[cnt + 1] = NULL;
-//	return (copy_elems(cmds, cnt, split, px));
+//int	main(void)
+//{
+//	t_pipex	px;
+//	char	*src = strdup("echo a b              c '[  ]' '[a b c]'  \"[ aa' bb' aa]\"");
+//	//char	*src = strdup("echo a b              c");
+//	//char	*src = strdup("awk '{print $1}'");
+//	//char	*src = strdup("cat");
+//	int		i = -1;
+//
+//	printf("***********************************************\n");
+//	split_cmds(src, &px);
+//	while (px.cmd[++i])
+//		printf("px.cmd[%d] : %s\n", i, px.cmd[i]);
+//	printf("************************************************\n");
+//	return (0);
 //}
+//

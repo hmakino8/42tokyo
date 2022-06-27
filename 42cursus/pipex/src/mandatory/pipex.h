@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 01:19:04 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:27:53 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct s_pipex
 	size_t	locate;
 	char	*fullpath_cmd;
 	char	**dev_envp;
-	char	**cmd_op;
-	char	**split;
+	char	**cmd;
 }	t_pipex;
 
 # define ERR_ARG 1

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:19:26 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/27 17:54:57 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:28:25 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static void	init_pipex(t_pipex *px)
 	px->pipe = NULL;
 	px->fullpath_cmd = NULL;
 	px->dev_envp = NULL;
-	px->cmd_op = NULL;
-	px->split = NULL;
+	px->cmd = NULL;
 }
 
 int	main(int ac, char **av, char **envp)
