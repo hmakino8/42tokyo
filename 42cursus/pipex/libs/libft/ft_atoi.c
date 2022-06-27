@@ -6,36 +6,36 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:44:45 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/26 08:10:12 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:49:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	return (c == ' ' || ('\t' <= c && c <= '\r'));
 }
 
-static long overflow(int sign)
+static long	overflow(int sign)
 {
 	if (sign > 0)
 		return (LONG_MIN);
 	return (LONG_MAX);
 }
 
-static int is_overflow(unsigned long num, int sign)
+static int	is_overflow(unsigned long num, int sign)
 {
-	if ((sign > 0 && num > LONG_MAX) ||
+	if ((sign > 0 && num > LONG_MAX) || \
 		(sign < 0 && num > (LONG_MAX + 1UL)))
 		return (1);
 	return (0);
 }
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int sign;
-	unsigned long num;
+	int				sign;
+	unsigned long	num;
 
 	sign = 1;
 	num = 0;

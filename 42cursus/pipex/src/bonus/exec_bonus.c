@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exex_bonus.c                                       :+:      :+:    :+:   */
+/*   exec_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 08:02:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:16:02 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ static void	child_process(char **av, char **envp, int i, t_pipex *px)
 {
 	duplicate_fd(i, px);
 	close_pipes(px);
-	px->cmd_op = split_cmds(av[2 + px->h_flag + i], px);
-	if (!px->cmd_op)
+	if (px->flag_h == FLAGGED_HEREDOC)
+		split_cmds(av[3 + i], px);
+	else
+		split_cmds(av[2 + i], px);
+	if (!px->cmd)
 		exit_fail(0, NULL, px);
-	get_cmd(px->cmd_op[0], px);
+	get_cmd(px->cmd[0], px);
 	if (!px->fullpath_cmd)
-		exit_fail(ERR_CMD, px->cmd_op[0], px);
-	if (execve(px->fullpath_cmd, px->cmd_op, envp) < 0)
+		exit_fail(ERR_CMD, px->cmd[0], px);
+	if (execve(px->fullpath_cmd, px->cmd, envp) < 0)
 		exit_fail(0, "execve", px);
 	exit(EXIT_SUCCESS);
 }

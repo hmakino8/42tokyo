@@ -14,13 +14,13 @@ NAME			=	pipex
 FLAGS			=	-Wall -Wextra -Werror
 
 #mandatory
-SRCS			=	pipex.c get.c exec.c split.c subelems.c free.c error.c
+SRCS			=	pipex.c get.c exec.c split.c free.c error.c
 SRCS_PATH		= 	$(addprefix ./src/mandatory/, $(SRCS))
 OBJS_PATH		=	$(SRCS_PATH:%.c=%.o)
 
 #bonus
 BONUS_SRCS		=	pipex_bonus.c get_bonus.c exec_bonus.c split_bonus.c \
-					subelems_bonus.c free_bonus.c error_bonus.c
+					free_bonus.c error_bonus.c
 BONUS_PATH		= 	$(addprefix ./src/bonus/, $(BONUS_SRCS))
 BONUS_OBJS_PATH	=	$(BONUS_PATH:%.c=%.o)
 

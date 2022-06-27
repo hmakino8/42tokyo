@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:19:26 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 08:02:45 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:16:47 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	check_args(int ac, char **av, t_pipex *px)
 	{
 		if (ac == 5)
 			return (exit_fail(ERR_ARG, NULL, px));
-		px->h_flag = 2;
+		px->flag_h = FLAGGED_HEREDOC;
 	}
 }
 
@@ -28,11 +28,11 @@ static void	init_pipex(t_pipex *px)
 {
 	px->idx = 0;
 	px->locate = 0;
-	px->h_flag = 0;
+	px->flag_h = 0;
 	px->pipe = NULL;
 	px->fullpath_cmd = NULL;
 	px->dev_envp = NULL;
-	px->cmd_op = NULL;
+	px->cmd = NULL;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -46,9 +46,10 @@ int	main(int ac, char **av, char **envp)
 	get_pipes(ac, &px);
 	exec_pipes(av, envp, &px);
 	close_pipes(&px);
-	waitpid(-1, NULL, 0);
+	while (px.cmd_cnt--)
+		waitpid(-1, NULL, 0);
 	free_alloc_memory(&px);
-	if (px.h_flag)
+	if (px.flag_h == FLAGGED_HEREDOC)
 		unlink(".heredoc");
 	return (0);
 }

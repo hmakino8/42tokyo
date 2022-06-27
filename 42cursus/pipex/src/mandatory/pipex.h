@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 02:27:53 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:18:38 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef struct s_pipex
 	int		o_fd;
 	int		h_fd;
 	int		flag_h;
-	int		flag_s;
-	int		flag_d;
 	int		cmd_cnt;
 	int		pipe_cnt;
 	int		*pipe;
@@ -59,8 +57,6 @@ void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
 //split.c
 void	split_cmds(char *cmds, t_pipex *px);
-//subelems.c
-char	**subelems(char *cmds, char **split, t_pipex *px);
 //exec.c
 void	exec_pipes(char **av, char **envp, t_pipex *px);
 //free.c

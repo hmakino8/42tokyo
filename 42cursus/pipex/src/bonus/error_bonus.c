@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:25:52 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 08:02:07 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:15:38 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exit_fail(int err_num, char *err, t_pipex *px)
 		ft_dprintf(2, "%s%s\n", "Error: command not found: ", err);
 	if (!err_num)
 		perror(err);
-	if (px->h_flag)
+	if (px->flag_h == FLAGGED_HEREDOC)
 		unlink(".heredoc");
 	free_alloc_memory(px);
 	exit(EXIT_FAILURE);

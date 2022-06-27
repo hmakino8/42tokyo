@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmds.c                                       :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:02:30 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/28 02:29:31 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:04:19 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,3 @@ void	split_cmds(char *cmds, t_pipex *px)
 	px->cmd[cnt + 1] = NULL;
 	return (element_cpy(cmds, cnt, px));
 }
-
-//#include <libc.h>
-//
-//int	main(void)
-//{
-//	t_pipex	px;
-//	char	*src = strdup("echo a b              c '[  ]' '[a b c]'  \"[ aa' bb' aa]\"");
-//	//char	*src = strdup("echo a b              c");
-//	//char	*src = strdup("awk '{print $1}'");
-//	//char	*src = strdup("cat");
-//	int		i = -1;
-//
-//	printf("***********************************************\n");
-//	split_cmds(src, &px);
-//	while (px.cmd[++i])
-//		printf("px.cmd[%d] : %s\n", i, px.cmd[i]);
-//	printf("************************************************\n");
-//	return (0);
-//}
-//

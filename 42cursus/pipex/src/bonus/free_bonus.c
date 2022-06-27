@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:28:16 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 08:02:32 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:16:18 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	free_alloc_memory(t_pipex *px)
 	free(px->fullpath_cmd);
 	if (px->dev_envp)
 		free_double_ptr(px->dev_envp);
-	if (px->cmd_op)
-		free_double_ptr(px->cmd_op);
+	if (px->cmd)
+		free_double_ptr(px->cmd);
 }

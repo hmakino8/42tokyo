@@ -3,86 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   split_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 07:03:56 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/24 08:03:30 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/06/27 17:02:30 by hiroaki           #+#    #+#             */
+/*   Updated: 2022/06/28 03:18:06 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static int	is_quatation_mark(char c, int *flag_s, int *flag_d)
+static bool	is_quotation_mark(char c)
 {
-	if (c == '"')
-		*flag_s ^= 1;
-	if (c == '\'')
-		*flag_d ^= 1;
-	return (*flag_s | *flag_d);
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
 }
 
-static size_t	delimiter_locate(char *s)
+static size_t	element_cnt(char *cmds, t_pipex *px)
 {
-	int		flag_s;
-	int		flag_d;
-	char	*tmp;
+	size_t	cnt;
+	char	q_mark;
 
-	flag_s = 0;
-	flag_d = 0;
-	tmp = s;
-	while (*s)
+	cnt = 0;
+	while (*cmds)
 	{
-		if (is_quatation_mark(*s, &flag_s, &flag_d))
-			s++;
-		else if (*s == ' ' && !flag_s && !flag_d)
-			return (s - tmp);
-		else
-			s++;
-	}
-	return (0);
-}
-
-static int	elem_count(char *s)
-{
-	int		cnt;
-	size_t	locate;
-
-	cnt = 1;
-	locate = 0;
-	while (*s)
-	{
-		locate = delimiter_locate(s);
-		if (!locate)
-			return (cnt);
-		cnt++;
-		s += locate + 1;
+		if (*cmds++ != ' ')
+		{
+			cnt++;
+			while (*cmds && *cmds != ' ')
+				cmds++;
+		}
+		if (is_quotation_mark(*cmds) == true)
+		{
+			cnt++;
+			q_mark = *cmds++;
+			while (*cmds != q_mark)
+				cmds++;
+			cmds++;
+		}
 	}
 	return (cnt);
 }
 
-static char
-	**copy_elems(char *cmds, int cnt, char **split, t_pipex *px)
+static void	sub_elems(char *cmds, size_t len, t_pipex *px)
 {
-	while (px->idx < cnt)
-	{
-		px->locate = delimiter_locate(cmds);
-		if (!px->locate)
-			return (subelems(cmds, split, px));
-		subelems(cmds, split, px);
-		px->idx++;
-		cmds += px->locate + 1;
-	}
-	return (split);
+	px->cmd[px->idx] = ft_substr(cmds, 0, len);
+	if (!(px->cmd[px->idx]))
+		exit_fail(0, NULL, px);
+	px->idx++;
 }
 
-char	**split_cmds(char *cmds, t_pipex *px)
+static void	element_cpy(char *cmds, size_t cnt, t_pipex *px)
 {
-	int		cnt;
-	char	**split;
+	size_t	len;
+	char	q_mark;
 
-	cnt = elem_count(cmds);
-	split = malloc(sizeof(char *) * (cnt + 1));
-	if (!split)
+	px->idx = 0;
+	while (*cmds && px->idx < cnt)
+	{
+		len = 0;
+		if (is_quotation_mark(*cmds) == true)
+		{
+			q_mark = *cmds++;
+			while (*(cmds + len) && *(cmds + len) != q_mark)
+				len++;
+			sub_elems(cmds, len, px);
+			cmds += len + 1;
+		}
+		if (*cmds && *cmds != ' ')
+		{
+			while (*(cmds + len) && *(cmds + len) != ' ')
+				len++;
+			sub_elems(cmds, len, px);
+			cmds += len;
+		}
+		cmds++;
+	}
+}
+
+void	split_cmds(char *cmds, t_pipex *px)
+{
+	size_t	cnt;
+
+	if (!cmds)
+		return ;
+	cnt = element_cnt(cmds, px);
+	px->cmd = (char **)malloc(sizeof(char *) * (cnt + 1));
+	if (!px->cmd)
 		exit_fail(0, NULL, px);
-	return (copy_elems(cmds, cnt, split, px));
+	px->cmd[cnt + 1] = NULL;
+	return (element_cpy(cmds, cnt, px));
 }

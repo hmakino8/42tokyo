@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/24 08:03:22 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 03:17:53 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <string.h>
+# include <stdbool.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
@@ -28,7 +29,7 @@ typedef struct s_pipex
 	int		i_fd;
 	int		o_fd;
 	int		h_fd;
-	int		h_flag;
+	int		flag_h;
 	int		cmd_cnt;
 	int		pipe_cnt;
 	int		*pipe;
@@ -36,7 +37,7 @@ typedef struct s_pipex
 	size_t	locate;
 	char	*fullpath_cmd;
 	char	**dev_envp;
-	char	**cmd_op;
+	char	**cmd;
 }	t_pipex;
 
 # define ERR_ARG 1
@@ -45,6 +46,7 @@ typedef struct s_pipex
 # define ERR_PIPE 4
 # define ERR_PATH 5
 # define ERR_HEREDOC 6
+# define FLAGGED_HEREDOC 7
 
 //pipex_bonus.c
 void	close_pipes(t_pipex *px);
@@ -54,9 +56,7 @@ void	get_paths(char **envp, t_pipex *px);
 void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
 //split_bonus.c
-char	**split_cmds(char *cmds, t_pipex *px);
-//subelems_bonus.c
-char	**subelems(char *cmds, char **split, t_pipex *px);
+void	split_cmds(char *cmds, t_pipex *px);
 //exec_bonus.c
 void	exec_pipes(char **av, char **envp, t_pipex *px);
 //free_bonus.c
