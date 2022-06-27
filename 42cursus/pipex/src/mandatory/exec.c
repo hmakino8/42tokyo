@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:29:23 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/25 21:14:37 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/27 04:57:55 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	duplicate_fd(int idx, t_pipex *px)
 		dup2(px->pipe[i + 3], 1);
 	}
 }
-
 static void	child_process(char **av, char **envp, int i, t_pipex *px)
 {
 	duplicate_fd(i, px);
@@ -53,8 +52,9 @@ static void	child_process(char **av, char **envp, int i, t_pipex *px)
 		px->cmd_op = split_cmds(av[2 + i], px);
 	if (!px->cmd_op)
 		exit_fail(0, NULL, px);
-	dprintf(2, "px->cmd_op = [%s]\n", px->cmd_op[0]);
-	dprintf(2, "px->cmd_op = [%s]\n", px->cmd_op[1]);
+	int j = 0;
+	while (px->cmd_op[j])
+		dprintf(2, "px->cmd_op[%d] = [%s]\n", j, px->cmd_op[j++]);
 	get_cmd(px->cmd_op[0], px);
 	if (!px->fullpath_cmd)
 		exit_fail(ERR_CMD, px->cmd_op[0], px);

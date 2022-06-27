@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:19:26 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/25 11:17:16 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/27 17:54:57 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ static void	init_pipex(t_pipex *px)
 	px->idx = 0;
 	px->locate = 0;
 	px->flag_h = 0;
+	px->flag_s = 0;
+	px->flag_d = 0;
 	px->pipe = NULL;
 	px->fullpath_cmd = NULL;
 	px->dev_envp = NULL;
 	px->cmd_op = NULL;
+	px->split = NULL;
 }
 
 int	main(int ac, char **av, char **envp)

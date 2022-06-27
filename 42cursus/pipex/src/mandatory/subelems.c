@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 07:32:59 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/27 02:07:51 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/27 07:30:29 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	**subelems(char *cmds, char **split, t_pipex *px)
 
 	if (!*cmds)
 		return (split);
-	trim = ft_strtrim(cmds, "\"'");
+	trim = ft_strtrim(cmds, " ");
+	trim = ft_strtrim(trim, "\"'");
 	if (!trim)
 		exit_fail(0, NULL, px);
 	if (!px->locate)
