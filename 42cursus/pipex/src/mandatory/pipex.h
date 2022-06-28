@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 03:18:38 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 10:13:23 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,36 @@ typedef struct s_pipex
 # define ERR_HEREDOC 6
 # define FLAGGED_HEREDOC 7
 
-//pipex.c
+/*
+ * pipex.c
+ */
 void	close_pipes(t_pipex *px);
-//get.c
+/*
+ * get.c
+ */
 void	get_files(int ac, char **av, t_pipex *px);
 void	get_paths(char **envp, t_pipex *px);
 void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
-//split.c
+/*
+ * split.c
+ */
 void	split_cmds(char *cmds, t_pipex *px);
-//exec.c
+/*
+ * exec.c
+ */
 void	exec_pipes(char **av, char **envp, t_pipex *px);
-//free.c
+/*
+ * free.c
+ */
 void	free_alloc_memory(t_pipex *px);
-//error.c
+/*
+ * error.c
+ */
 void	exit_fail(int err_num, char *err, t_pipex *px);
+/*
+ * utils.c
+ */
+bool	is_quotation_mark(char c);
 
 #endif

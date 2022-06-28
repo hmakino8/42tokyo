@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 03:17:53 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/06/28 10:15:15 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,36 @@ typedef struct s_pipex
 # define ERR_HEREDOC 6
 # define FLAGGED_HEREDOC 7
 
-//pipex_bonus.c
+/*
+ * pipex_bonus.c
+ */
 void	close_pipes(t_pipex *px);
-//get_bonus.c
+/*
+ * get_bonus.c
+ */
 void	get_files(int ac, char **av, t_pipex *px);
 void	get_paths(char **envp, t_pipex *px);
 void	get_pipes(int ac, t_pipex *px);
 void	get_cmd(char *cmd, t_pipex *px);
-//split_bonus.c
+/*
+ * split_bonus.c
+ */
 void	split_cmds(char *cmds, t_pipex *px);
-//exec_bonus.c
+/*
+ * exec_bonus.c
+ */
 void	exec_pipes(char **av, char **envp, t_pipex *px);
-//free_bonus.c
+/*
+ * free_bonus.c
+ */
 void	free_alloc_memory(t_pipex *px);
-//error_bonus.c
+/*
+ * error_bonus.c
+ */
 void	exit_fail(int err_num, char *err, t_pipex *px);
+/*
+ * utils_bonus.c
+ */
+bool	is_quotation_mark(char c);
 
 #endif
