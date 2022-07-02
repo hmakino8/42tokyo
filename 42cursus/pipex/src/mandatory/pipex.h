@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/07/03 00:05:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 02:28:00 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
+# include <signal.h>
 # include <sys/uio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
@@ -44,7 +45,6 @@ enum
 {
 	ERR_ARG = 1,
 	ERR_CMD,
-	ERR_GNL,
 	ERR_PIPE,
 	ERR_PATH,
 	ERR_HEREDOC,
@@ -81,6 +81,7 @@ void	exit_fail(int err_num, char *err, t_pipex *px);
 /*
  * utils.c
  */
-bool	is_quotation_mark(char c);
+int		is_quotation_mark(char c);
+int		ft_strcmp_gnl(const char *lmt, const char *gnl);
 
 #endif

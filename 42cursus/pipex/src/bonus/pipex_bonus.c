@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:19:26 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 10:08:35 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 02:43:02 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,18 @@ static void	init_pipex(t_pipex *px)
 	px->cmd = NULL;
 }
 
+static void	signal_handler(int unuse)
+{
+	(void)unuse;
+	unlink(".heredoc");
+	exit(1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_pipex	px;
 
+	signal(SIGINT, signal_handler);
 	init_pipex(&px);
 	check_args(ac, av, &px);
 	get_files(ac, av, &px);

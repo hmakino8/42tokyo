@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:26:41 by hmakino           #+#    #+#             */
-/*   Updated: 2022/07/03 00:30:08 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 01:59:36 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	get_files(int ac, char **av, t_pipex *px)
 {
 	if (px->flag_h == FLAGGED_HEREDOC)
 	{
-		px->o_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0000644);
-		if (px->o_fd < 0)
-			return (exit_fail(ERR_HEREDOC, NULL, px));
 		get_heredoc(av[2], px);
 		px->i_fd = open(".heredoc", O_RDONLY);
 		if (px->i_fd < 0)
+			return (exit_fail(ERR_HEREDOC, NULL, px));
+		px->o_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0000644);
+		if (px->o_fd < 0)
 			return (exit_fail(ERR_HEREDOC, NULL, px));
 		return ;
 	}

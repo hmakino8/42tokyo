@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:02:30 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/07/03 00:34:52 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 02:26:41 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t	element_count(char *cmds)
 	cnt = 1;
 	while (*cmds)
 	{
-		if (is_quotation_mark(*cmds) == true)
+		if (is_quotation_mark(*cmds))
 		{
 			q_mark = *cmds++;
 			while (*cmds && *cmds != q_mark)
@@ -30,7 +30,7 @@ static size_t	element_count(char *cmds)
 		else if (*cmds && !ft_isspace(*cmds))
 		{
 			while (*cmds && !ft_isspace(*cmds) && \
-				is_quotation_mark(*cmds) == false)
+				!is_quotation_mark(*cmds))
 				cmds++;
 		}
 		if (ft_isspace(*cmds))
@@ -49,7 +49,7 @@ static char	*elem_join_case_quotation(char *cmds, t_pipex *px)
 
 	len = 0;
 	q_mark = *cmds++;
-	while (*(cmds + len) && *(cmds + len) != q_mark)
+	while (cmds[len] && cmds[len] != q_mark)
 		len++;
 	tmp = ft_substr(cmds, 0, len);
 	if (!tmp)
@@ -67,8 +67,8 @@ static char	*elem_join_case_other(char *cmds, t_pipex *px)
 	char	*tmp;
 
 	len = 0;
-	while (*(cmds + len) && !ft_isspace(*(cmds + len)) && \
-		is_quotation_mark(*(cmds + len)) == false)
+	while (cmds[len] && !ft_isspace(cmds[len]) && \
+		!is_quotation_mark(cmds[len]))
 		len++;
 	tmp = ft_substr(cmds, 0, len);
 	if (!tmp)
@@ -93,7 +93,7 @@ static void	element_copy(char *cmds, size_t cnt, t_pipex *px)
 		}
 		while (*cmds && !ft_isspace(*cmds))
 		{
-			if (is_quotation_mark(*cmds) == true)
+			if (is_quotation_mark(*cmds))
 				cmds = elem_join_case_quotation(cmds, px);
 			else if (*cmds && !ft_isspace(*cmds))
 				cmds = elem_join_case_other(cmds, px);
