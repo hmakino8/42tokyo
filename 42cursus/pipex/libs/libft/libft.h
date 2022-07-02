@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:48:09 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 02:48:46 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/02 12:44:09 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 //Additional
 int		ft_isspace(int c);
+int		ft_strcmp_gnl(const char *s1, const char *s2);
 
 #endif

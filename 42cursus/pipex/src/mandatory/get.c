@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmakino <hmakino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 07:26:41 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/25 11:20:17 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 00:30:08 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	get_heredoc(char *limiter, char *filename, t_pipex *px)
+static void	get_heredoc(char *limiter, t_pipex *px)
 {
 	int		cmp;
 	char	*gnl;
@@ -26,28 +26,25 @@ static void	get_heredoc(char *limiter, char *filename, t_pipex *px)
 		ft_dprintf(1, "%s", "heredoc> ");
 		gnl = get_next_line(0);
 		if (!gnl)
-		{
-			open(filename, O_WRONLY | O_CREAT | O_APPEND, 0000644);
-			exit_fail(ERR_GNL, NULL, px);
-		}
-		cmp = ft_strncmp(limiter, gnl, ft_strlen(limiter));
+			break ;
+		cmp = ft_strcmp_gnl(limiter, gnl);
 		if (cmp)
 			ft_dprintf(px->h_fd, "%s", gnl);
 		free(gnl);
 	}
+	close(px->h_fd);
 }
 
 void	get_files(int ac, char **av, t_pipex *px)
 {
 	if (px->flag_h == FLAGGED_HEREDOC)
 	{
-		get_heredoc(av[2], av[ac - 1], px);
-		close(px->h_fd);
-		px->i_fd = open(".heredoc", O_RDONLY);
-		if (px->i_fd < 0)
-			return (exit_fail(ERR_HEREDOC, NULL, px));
 		px->o_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0000644);
 		if (px->o_fd < 0)
+			return (exit_fail(ERR_HEREDOC, NULL, px));
+		get_heredoc(av[2], px);
+		px->i_fd = open(".heredoc", O_RDONLY);
+		if (px->i_fd < 0)
 			return (exit_fail(ERR_HEREDOC, NULL, px));
 		return ;
 	}
@@ -61,10 +58,12 @@ void	get_files(int ac, char **av, t_pipex *px)
 
 void	get_paths(char **envp, t_pipex *px)
 {
-	while (ft_strncmp("PATH", *envp, 4))
+	while (1)
 	{
 		if (!*envp)
 			return (exit_fail(ERR_PATH, NULL, px));
+		if (!ft_strncmp("PATH", *envp, 4))
+			break ;
 		envp++;
 	}
 	px->dev_envp = ft_split(*envp + 5, ':');
@@ -97,12 +96,16 @@ void	get_cmd(char *cmd, t_pipex *px)
 	int		i;
 	char	*tmp;
 
-	i = 0;
-	while (px->dev_envp[i])
+	i = -1;
+	tmp = NULL;
+	while (px->dev_envp[++i])
 	{
-		tmp = ft_strjoin(px->dev_envp[i++], "/");
-		if (!tmp)
-			exit_fail(0, NULL, px);
+		if (!ft_strchr(cmd, '/'))
+		{
+			tmp = ft_strjoin(px->dev_envp[i], "/");
+			if (!tmp)
+				exit_fail(0, NULL, px);
+		}
 		px->fullpath_cmd = ft_strjoin(tmp, cmd);
 		free(tmp);
 		tmp = NULL;

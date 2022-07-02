@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:08:02 by hmakino           #+#    #+#             */
-/*   Updated: 2022/06/28 10:13:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/07/03 00:05:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ typedef struct s_pipex
 	char	**cmd;
 }	t_pipex;
 
-# define ERR_ARG 1
-# define ERR_CMD 2
-# define ERR_GNL 3
-# define ERR_PIPE 4
-# define ERR_PATH 5
-# define ERR_HEREDOC 6
-# define FLAGGED_HEREDOC 7
+enum
+{
+	ERR_ARG = 1,
+	ERR_CMD,
+	ERR_GNL,
+	ERR_PIPE,
+	ERR_PATH,
+	ERR_HEREDOC,
+	FLAGGED_HEREDOC,
+};
 
 /*
  * pipex.c

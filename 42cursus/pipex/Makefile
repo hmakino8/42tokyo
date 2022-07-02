@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME			=	pipex
-FLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 
 #mandatory
 SRCS			=	pipex.c get.c exec.c split.c free.c error.c utils.c
@@ -34,7 +34,7 @@ $(NAME):		$(OBJS_PATH) $(LIBFT) $(GNL) $(DPRINTF)
 				$(MAKE) -C ./libs/libft
 				$(MAKE) -C ./libs/gnl
 				$(MAKE) -C ./libs/ft_dprintf
-				$(CC) $(OBJS_PATH) $(LIBFT) $(GNL) $(DPRINTF) $(FLAGS) -o $(NAME)
+				$(CC) $(OBJS_PATH) $(LIBFT) $(GNL) $(DPRINTF) $(CFLAGS) -o $(NAME)
 
 LIBFT			=	./libs/libft/libft.a
 GNL				=	./libs/gnl/libftgnl.a
