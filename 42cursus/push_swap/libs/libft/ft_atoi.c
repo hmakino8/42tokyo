@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 23:44:45 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/06/21 19:24:56 by hmakino          ###   ########.fr       */
+/*   Updated: 2022/07/06 00:47:18 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_isoverflow(unsigned long num, int sign)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, bool *isvalid)
 {
 	int				sign;
 	unsigned long	num;
@@ -46,12 +46,16 @@ int	ft_atoi(const char *str)
 		if (*str++ == '-')
 			sign = -1;
 	}
-	while (ft_isdigit(*str))
+	*isvalid = false;
+	while (*str)
 	{
+		if (!ft_isdigit(*str))
+			return (-1);
 		num = (num * 10) + (*str++ - '0');
 		if (ft_isoverflow(num, sign))
 			return (ft_overflow(sign));
 	}
+	*isvalid = true;
 	return ((int)num * sign);
 }
 
